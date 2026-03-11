@@ -1,0 +1,25 @@
+# nanobot webui — standalone Docker Compose
+# Runs the webui backend + serves frontend via nginx
+
+services:
+  backend:
+    build:
+      context: ../..
+      dockerfile: webui/Dockerfile.backend
+    container_name: nanobot-webui-backend
+    volumes:
+      - ~/.nanobot:/root/.nanobot
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: nanobot-webui-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "nanobot-webui"
+version = "0.1.0"
+description = "Web management panel for nanobot"
+requires-python = ">=3.11"
+dependencies = [
+    "nanobot-ai",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "PyJWT>=2.8.0",
+    "bcrypt>=4.1",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "httpx",
+    "pytest",
+    "pytest-asyncio",
+]
+
+[project.scripts]
+nanobot-webui = "webui.__main__:main"
+
+[tool.setuptools.packages.find]
+where = [".."]
+include = ["webui*"]
